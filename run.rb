@@ -3,9 +3,7 @@
 
 Bundler.require
 require 'dotenv/load'
-
 require 'json'
-
 require 'active_support'
 require 'active_support/core_ext'
 
@@ -49,14 +47,10 @@ def wp_id_from_description(description)
   match[1] if match
 end
 
-TogglV8::TOGGL_REPORTS_URL = 'https://api.track.toggl.com/reports/api/'
-
 toggl_api    = TogglV8::API.new(toggl_token)
 user         = toggl_api.me(all = true)
 workspaces   = toggl_api.my_workspaces(user)
 workspace_id = workspaces.first['id']
-
-TOGGL_REPORTS_URL = 'https://toggl.com/reports/api/'
 
 reports = TogglV8::ReportsV2.new(api_token: toggl_token)
 reports.workspace_id = workspace_id

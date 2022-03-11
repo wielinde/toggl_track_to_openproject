@@ -1,7 +1,7 @@
 GIT
-  remote: https://github.com/ErebusBat/togglv8.git
-  revision: 8beefb27cae3fe96aecad11ac28c9fd6239a5403
-  ref: 8beefb27cae3fe96aecad11ac28c9fd6239a5403
+  remote: https://github.com/ramhoj/togglv8.git
+  revision: 1fe79411240c64c694f864e57b92b99da13f65e9
+  ref: 1fe7941
   specs:
     togglv8 (1.2.1)
       faraday
