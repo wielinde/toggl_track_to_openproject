@@ -6,6 +6,8 @@ require 'dotenv/load'
 require 'json'
 require 'active_support'
 require 'active_support/core_ext'
+require 'bigdecimal'
+require 'bigdecimal/util' # loads the to_d method
 
 op_host = ENV["OPENPROJECT_HOST"] || 'localhost:3000'
 op_api_key = ENV["OPENPROJECT_API_KEY"]
@@ -81,7 +83,7 @@ by_description.keys.each do |key|
   end
 
   duration = by_description[key].inject(0) { |sum, entry| sum + entry['dur'] }
-  hours = (duration.to_f / 60.0 / 60.0 / 1000.0).round(2)
+  hours = (duration.to_d / 60.0 / 60.0 / 1000.0).round(2)
   time_total += duration
   hours_total += hours
 
@@ -91,7 +93,7 @@ by_description.keys.each do |key|
   end
   by_date.keys.each do |date|
     duration_per_date = by_date[date].inject(0) { |sum, entry| sum + entry['dur'] }
-    hours_per_date = (duration_per_date.to_f / 60.0 / 60.0 / 1000.0).round(2)
+    hours_per_date = (duration_per_date.to_d / 60.0 / 60.0 / 1000.0).round(2)
     puts "#{date}\t#{hours_per_date}"
 
     if wp_id.present? && op_activity_id.present? && hours_per_date.present? && hours_per_date > 0.0 && date.present?
@@ -106,8 +108,8 @@ by_description.keys.each do |key|
   end
 end
 
-puts "#{(time_total.to_f / 60.0 / 60.0 / 1000.0).round(2)}"
+puts "#{(time_total.to_d / 60.0 / 60.0 / 1000.0).round(2)}"
 puts "#{hours_total.round(2)}"
-puts "#{(time_total_alt.to_f / 60.0 / 60.0 / 1000.0).round(2)}"
+puts "#{(time_total_alt.to_d / 60.0 / 60.0 / 1000.0).round(2)}"
 puts "#{hours_total_alt.round(2)}"
 
